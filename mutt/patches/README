@@ -1,0 +1,21 @@
+My personal copy of patches for mutt that seems to work well with each other .
+Mainly gathered from Arch Linux mutt-great-dane 1.5.21-1 package
+http://aur.archlinux.org/packages.php?ID=38863
+
+In all this includes: 
+  - patch-1.5.21.as.echo.2
+  - patch-1.5.21.cd.ifdef.2 
+  - patch-1.5.21.csev.ask_passphrase.1
+  - patch-1.5.21.indexcolor-3+cb.diff 
+  - patch-1.5.21.vvv.quote.2 - mutt-attach.patch 
+  - patch-1.5.21.ats.date_conditional.3 
+  - patch-1.5.21.cd.source_multiple.3 
+  - patch-1.5.21.dgc.deepif.2 
+  - patch-1.5.21.vvv.initials
+
+This is in addition to the sidebar-patch, trash-patch and
+pgp-verbose-mime-patch that were already present in the 1.5.21 brew. The
+existing ignore-thread-patch does not seem to work well with the sidebar-patch,
+as reported at https://github.com/mxcl/homebrew/issues/7541
+
+
