@@ -1,0 +1,50 @@
+diff -ruN mutt.orig/globals.h mutt/globals.h
+--- mutt.orig/globals.h	2003-09-13 16:23:24.000000000 +0200
++++ mutt/globals.h	2003-09-13 16:23:18.000000000 +0200
+@@ -195,6 +195,8 @@
+ WHERE char *PgpListSecringCommand;
+ WHERE char *PgpListPubringCommand;
+ WHERE char *PgpGetkeysCommand;
++WHERE char *PgpMimeSignatureFilename;
++WHERE char *PgpMimeSignatureDescription;
+ 
+ /*-- formerly in smime.h --*/
+ WHERE char *SmimeDefaultKey;
+diff -ruN mutt.orig/init.h mutt/init.h
+--- mutt.orig/init.h	2003-09-13 16:23:24.000000000 +0200
++++ mutt/init.h	2003-09-13 16:21:53.000000000 +0200
+@@ -1458,6 +1458,18 @@
+   ** This option overrides ``$$pgp_create_traditional''
+   ** (PGP only)
+   */
++  { "pgp_mime_signature_filename", DT_STR, R_NONE, UL &PgpMimeSignatureFilename, UL "signature.asc"},
++  /*
++  ** .pp
++  ** This option sets the filename used for signature parts in PGP/MIME
++  ** signed messages.
++  */
++  { "pgp_mime_signature_description", DT_STR, R_NONE, UL &PgpMimeSignatureDescription, UL "Digital signature"},
++  /*
++  ** .pp
++  ** This option sets the Content-Description used for signature parts in
++  ** PGP/MIME signed messages.
++  */
+ 
+   /* XXX Default values! */
+   
+diff -ruN mutt.orig/pgp.c mutt/pgp.c
+--- mutt.orig/pgp.c	2003-09-13 16:23:24.000000000 +0200
++++ mutt/pgp.c	2003-09-13 16:21:53.000000000 +0200
+@@ -998,6 +998,8 @@
+   t->disposition = DISPINLINE;
+   t->encoding = ENC7BIT;
+   t->unlink = 1; /* ok to remove this file after sending. */
++  mutt_set_parameter ("name", PgpMimeSignatureFilename, &t->parameter);
++  t->description = safe_strdup (PgpMimeSignatureDescription);
+ 
+   return (a);
+ }
+--- a/PATCHES
++++ b/PATCHES
+@@ -0,0 +1 @@
++patch-1.5.4.vk.pgp_verbose_mime
